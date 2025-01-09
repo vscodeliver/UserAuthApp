@@ -1,0 +1,13 @@
+[phases.build]
+commands = [
+  "cd backend && npm install",
+  "cd frontend && npm install && npm run build"
+]
+
+[phases.start]
+commands = [
+  "cd backend && npm start"
+]
+
+[phases.static]
+directory = "frontend/dist"
