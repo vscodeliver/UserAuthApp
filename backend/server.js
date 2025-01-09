@@ -4,6 +4,7 @@ const session = require("express-session");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 require("dotenv").config();
 
