@@ -9,5 +9,5 @@ commands = [
   "cd backend && npm start"
 ]
 
-[phases.static]
+[static]
 directory = "frontend/dist"
