@@ -26,6 +26,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "http://localhost:4173",
       "https://userauthapp-production.up.railway.app",
     ], // Укажите точный адрес фронтенда
     credentials: true, // Разрешить отправку cookies
