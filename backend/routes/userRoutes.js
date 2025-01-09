@@ -6,14 +6,20 @@ const { generateAccessToken, generateRefreshToken } = require("../utils/auth");
 const {
   saveRefreshToken,
   deleteRefreshToken,
+  isRefreshTokenValid,
 } = require("../utils/tokenService");
 const validator = require("validator");
+const { protectedRoute } = require("../middleware/protectedRoute");
 
 require("dotenv").config();
 
-const { REFRESH_TOKEN_SECRET } = process.env;
+const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 const router = express.Router();
+
+router.get("/validate", protectedRoute, (req, res) => {
+  res.json({ valid: true }); // Возвращаем, что токен действителен
+});
 
 // Регистрация
 router.post("/register", async (req, res) => {
@@ -63,7 +69,7 @@ router.post("/register", async (req, res) => {
 
 // Авторизация
 router.post("/login", async (req, res) => {
-  const { email, password, captchaCode } = req.body;
+  const { email, password } = req.body;
 
   // Проверка капчи
   // if (req.session.captcha !== captchaCode) {
@@ -143,9 +149,21 @@ router.post("/token", async (req, res) => {
   }
 });
 
+// Пример защищённого маршрута
+router.get("/", protectedRoute, (req, res) => {
+  res.json({
+    message: "Доступ к защищённому ресурсу получен",
+    user: req.user,
+  });
+});
+
 // Выход из системы
 router.post("/logout", async (req, res) => {
   const { refreshToken } = req.cookies;
+
+  if (!refreshToken) {
+    return res.status(400).json({ error: "Refresh токен отсутствует" });
+  }
 
   try {
     await deleteRefreshToken(refreshToken);

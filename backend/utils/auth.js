@@ -7,7 +7,7 @@ const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 // Генерация токенов
 const generateAccessToken = (user) =>
-  jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
+  jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
 const generateRefreshToken = (user) =>
   jwt.sign(user, REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 
