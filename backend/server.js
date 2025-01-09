@@ -47,6 +47,14 @@ app.use((req, res, next) => {
 // Routes
 app.use("/user", userRoutes);
 
+// Middleware для обслуживания статических файлов
+app.use(express.static(path.join(__dirname, "public")));
+
+// Перенаправление всех запросов на фронтенд
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`Сервер доступен по адресу http://localhost:${PORT}`);
 });
