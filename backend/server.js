@@ -24,7 +24,10 @@ const { SESSION_SECRET_KEY } = process.env;
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Укажите точный адрес фронтенда
+    origin: [
+      "http://localhost:5173",
+      "https://userauthapp-production.up.railway.app",
+    ], // Укажите точный адрес фронтенда
     credentials: true, // Разрешить отправку cookies
   })
 );
