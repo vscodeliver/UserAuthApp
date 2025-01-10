@@ -42,8 +42,17 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const MySQLStore = require("express-mysql-session")(session);
+
+const sessionStore = new MySQLStore({
+  host: process.env.MYSQL_SERVICE_URI,
+  database: "defaultdb",
+});
+
 app.use(
   session({
+    store: sessionStore,
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
