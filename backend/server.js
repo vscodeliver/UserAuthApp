@@ -66,17 +66,28 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: PROD_MODE,
+      secure: PROD_MODE, // Для разработки secure: false (HTTPS не требуется)
       httpOnly: true,
       sameSite: "none",
-    }, // Для разработки secure: false (HTTPS не требуется)
+    },
   })
 );
+
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-  // console.log("Session:", req.session.captcha);
-  next();
+// app.use((req, res, next) => {
+// console.log("Session:", req.session.captcha);
+//   next();
+// });
+
+// Пример маршрута для тестирования cookies
+app.get("/test", (req, res) => {
+  if (!req.session.viewCount) {
+    req.session.viewCount = 1;
+  } else {
+    req.session.viewCount++;
+  }
+  res.json({ message: "Тестовый маршрут", viewCount: req.session.viewCount });
 });
 
 // Routes
