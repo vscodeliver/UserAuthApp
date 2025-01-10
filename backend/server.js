@@ -59,12 +59,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   }
 // });
 
-const RedisStore = require("connect-redis").default;
+const { RedisStore } = require("connect-redis");
 const { createClient } = require("redis");
 
 const redisClient = createClient({
   url: "redis://default:tRPXxIVKLOZLMDowCTUXZynakRqASsIq@autorack.proxy.rlwy.net:51535"
 });
+
 redisClient.connect().catch(console.error);
 
 app.use(
