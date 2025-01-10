@@ -22,6 +22,8 @@ const PORT = process.env.PORT || 5000;
 
 const { SESSION_SECRET_KEY } = process.env;
 
+const PROD_MODE = process.env.NODE_ENV === "production";
+
 app.use(
   cors({
     origin: [
@@ -40,7 +42,11 @@ app.use(
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, httpOnly: false }, // Для разработки secure: false (HTTPS не требуется)
+    cookie: {
+      secure: PROD_MODE,
+      httpOnly: true,
+      sameSite: "none",
+    }, // Для разработки secure: false (HTTPS не требуется)
   })
 );
 app.use(cookieParser());
