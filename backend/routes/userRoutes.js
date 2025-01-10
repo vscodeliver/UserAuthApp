@@ -6,7 +6,7 @@ const { generateAccessToken, generateRefreshToken } = require("../utils/auth");
 const {
   saveRefreshToken,
   deleteRefreshToken,
-  isRefreshTokenValid,
+  isRefreshTokenValid
 } = require("../utils/tokenService");
 const validator = require("validator");
 const { protectedRoute } = require("../middleware/protectedRoute");
@@ -109,7 +109,7 @@ router.post("/login", async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: PROD_MODE ? true : false, // Используйте true в продакшене
-      sameSite: "strict",
+      sameSite: "strict"
     });
 
     res.json({ accessToken, message: "Авторизация успешна" });
@@ -147,7 +147,7 @@ router.post("/verify-captcha", (req, res) => {
       res.json({ success: false, message: "Неверная капча" });
     }
   } else {
-    console.log("Req session captcha:", req.session.captcha);
+    // console.log("Req session captcha:", req.session.captcha);
     res.json({ success: false, message: "Сессия отсутствует или истекла" });
   }
 });
@@ -174,7 +174,7 @@ router.post("/token", async (req, res) => {
 router.get("/", protectedRoute, (req, res) => {
   res.json({
     message: "Доступ к защищённому ресурсу получен",
-    user: req.user,
+    user: req.user
   });
 });
 
