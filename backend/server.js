@@ -4,6 +4,7 @@ const session = require("express-session");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const cookieParser = require("cookie-parser");
+const fs = require("fs");
 const path = require("path");
 
 require("dotenv").config();
@@ -51,6 +52,11 @@ const sessionStore = new MySQLStore({
   user: "anvadmin",
   password: "AVNS_XHn96rh1RFUzzcbxmIp",
   database: "defaultdb",
+  ssl: {
+    require: true,
+    ca: fs.readFileSync(path.resolve("certificates", "ca.pem")),
+    rejectUnauthorized: true,
+  },
 });
 
 app.use(
