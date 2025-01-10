@@ -106,7 +106,12 @@ router.post("/login", async (req, res) => {
 
     const PROD_MODE = process.env.NODE_ENV === "production";
 
-    res.cookie("refreshToken", refreshToken);
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: PROD_MODE,
+      sameSite: PROD_MODE ? "none" : "lax",
+      path: "/"
+    });
 
     res.json({ accessToken, message: "Авторизация успешна" });
   } catch (err) {
