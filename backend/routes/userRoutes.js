@@ -124,6 +124,9 @@ router.get("/captcha", (req, res) => {
     const captcha = generateCaptcha();
 
     req.session.captcha = captcha.text; // Save captcha text in the session
+
+    console.log("Generated captcha:", req.session.captcha);
+
     res.setHeader("Content-Type", "image/svg+xml"); // Specify the correct content type
     res.send(captcha.data); // Send the SVG image
   } catch (error) {
