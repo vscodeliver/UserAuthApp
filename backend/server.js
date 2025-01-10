@@ -30,6 +30,9 @@ const PROD_MODE =
 
 console.log("Production mode:", PROD_MODE);
 
+// Доверять первому прокси (например, Railway)
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: [
