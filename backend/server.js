@@ -44,20 +44,20 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const MySQLStore = require("express-mysql-session")(session);
+const MySQLStore = require("express-mysql-session")(session);
 
-// const sessionStore = new MySQLStore({
-//   host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
-//   port: 14311,
-//   user: "railway",
-//   password: "AVNS_y2i4Rf_MwgLo3hCtHq0",
-//   database: "defaultdb",
-//   ssl: {
-//     require: true,
-//     ca: fs.readFileSync(path.resolve("certificates", "ca.pem")),
-//     rejectUnauthorized: true
-//   }
-// });
+const sessionStore = new MySQLStore({
+  host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
+  port: 14311,
+  user: "railway",
+  password: "AVNS_y2i4Rf_MwgLo3hCtHq0",
+  database: "defaultdb",
+  ssl: {
+    require: true,
+    ca: fs.readFileSync(path.resolve("certificates", "ca.pem")),
+    rejectUnauthorized: true
+  }
+});
 
 // const { RedisStore } = require("connect-redis");
 // const { createClient } = require("redis");
@@ -70,26 +70,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   session({
-    // store: sessionStore,
+    store: sessionStore,
     // store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
       secure: PROD_MODE, // Для разработки secure: false (HTTPS не требуется)
-      httpOnly: false,
-      sameSite: "none"
+      httpOnly: true,
+      sameSite: PROD_MODE ? "none" : "lax"
     }
   })
 );
 
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-  console.log("Cookies:", req.cookies); // Логирование cookies
-  console.log("Session:", req.session); // Логирование сессии
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Cookies:", req.cookies); // Логирование cookies
+//   console.log("Session:", req.session); // Логирование сессии
+//   next();
+// });
 
 // Пример маршрута для тестирования cookies
 app.get("/test", (req, res) => {
