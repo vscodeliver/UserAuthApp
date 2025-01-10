@@ -44,41 +44,41 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const MySQLStore = require("express-mysql-session")(session);
+const MySQLStore = require("express-mysql-session")(session);
 
-// const sessionStore = new MySQLStore({
-//   host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
-//   port: 14311,
-//   user: "railway",
-//   password: "AVNS_y2i4Rf_MwgLo3hCtHq0",
-//   database: "defaultdb",
-//   ssl: {
-//     require: true,
-//     ca: fs.readFileSync(path.resolve("certificates", "ca.pem")),
-//     rejectUnauthorized: true
-//   }
-// });
-
-const { RedisStore } = require("connect-redis");
-const { createClient } = require("redis");
-
-const redisClient = createClient({
-  url: "redis://default:tRPXxIVKLOZLMDowCTUXZynakRqASsIq@autorack.proxy.rlwy.net:51535"
+const sessionStore = new MySQLStore({
+  host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
+  port: 14311,
+  user: "railway",
+  password: "AVNS_y2i4Rf_MwgLo3hCtHq0",
+  database: "defaultdb",
+  ssl: {
+    require: true,
+    ca: fs.readFileSync(path.resolve("certificates", "ca.pem")),
+    rejectUnauthorized: true
+  }
 });
 
-redisClient.connect().catch(console.error);
+// const { RedisStore } = require("connect-redis");
+// const { createClient } = require("redis");
+
+// const redisClient = createClient({
+//   url: "redis://default:tRPXxIVKLOZLMDowCTUXZynakRqASsIq@autorack.proxy.rlwy.net:51535"
+// });
+
+// redisClient.connect().catch(console.error);
 
 app.use(
   session({
-    // store: sessionStore,
-    store: new RedisStore({ client: redisClient }),
+    store: sessionStore,
+    // store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
       secure: PROD_MODE, // Для разработки secure: false (HTTPS не требуется)
-      httpOnly: true,
-      sameSite: "none"
+      httpOnly: false,
+      sameSite: true
     }
   })
 );
