@@ -80,6 +80,12 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Укажите свой E-Mail" });
   }
 
+  if (!validator.isEmail(email)) {
+    return res
+      .status(400)
+      .json({ error: "Укажите настоящий адрес электронной почты" });
+  }
+
   try {
     // Поиск пользователя
     const user = await User.findOne({ where: { email } });
