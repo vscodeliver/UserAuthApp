@@ -22,7 +22,10 @@ const PORT = process.env.PORT || 5000;
 
 const { SESSION_SECRET_KEY } = process.env;
 
-const PROD_MODE = process.env.NODE_ENV === "production";
+const PROD_MODE =
+  (process.env.RAILWAY_ENVIRONMENT_NAME &&
+    process.env.RAILWAY_ENVIRONMENT_NAME === "production") ||
+  process.env.NODE_ENV === "production";
 
 app.use(
   cors({
