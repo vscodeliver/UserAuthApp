@@ -47,7 +47,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: PROD_MODE,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
     }, // Для разработки secure: false (HTTPS не требуется)
   })
