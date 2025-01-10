@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 app.use("/user", userRoutes);
 
 // Middleware для обслуживания статических файлов
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 // Перенаправление всех запросов на фронтенд
 app.get("*", (req, res) => {
