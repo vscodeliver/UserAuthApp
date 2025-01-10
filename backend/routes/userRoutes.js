@@ -76,6 +76,10 @@ router.post("/login", async (req, res) => {
   //   return res.status(400).json({ error: "Неверная капча" });
   // }
 
+  if (!email.trim()) {
+    return res.status(400).json({ error: "Укажите свой E-Mail" });
+  }
+
   try {
     // Поиск пользователя
     const user = await User.findOne({ where: { email } });
