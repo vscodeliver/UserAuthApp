@@ -23,10 +23,7 @@ const PORT = process.env.PORT || 5000;
 
 const { SESSION_SECRET_KEY } = process.env;
 
-const PROD_MODE =
-  (process.env.RAILWAY_ENVIRONMENT_NAME &&
-    process.env.RAILWAY_ENVIRONMENT_NAME === "production") ||
-  process.env.NODE_ENV === "production";
+const { PROD_MODE, cookieOptions } = require("./config");
 
 console.log("Production mode:", PROD_MODE);
 
@@ -79,11 +76,7 @@ app.use(
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      secure: PROD_MODE, // Для разработки secure: false (HTTPS не требуется)
-      httpOnly: true,
-      sameSite: PROD_MODE ? "none" : "lax"
-    }
+    cookie: cookieOptions
   })
 );
 

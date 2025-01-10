@@ -10,6 +10,7 @@ const {
 } = require("../utils/tokenService");
 const validator = require("validator");
 const { protectedRoute } = require("../middleware/protectedRoute");
+const { cookieOptions } = require("../config");
 
 require("dotenv").config();
 
@@ -104,14 +105,7 @@ router.post("/login", async (req, res) => {
 
     await saveRefreshToken(refreshToken, user.email);
 
-    const PROD_MODE = process.env.NODE_ENV === "production";
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: PROD_MODE,
-      sameSite: PROD_MODE ? "none" : "lax",
-      path: "/"
-    });
+    res.cookie("refreshToken", refreshToken, cookieOptions);
 
     res.json({ accessToken, message: "Авторизация успешна" });
   } catch (err) {
@@ -189,7 +183,7 @@ router.post("/logout", async (req, res) => {
 
   try {
     await deleteRefreshToken(refreshToken);
-    res.clearCookie("refreshToken");
+    res.clearCookie("refreshToken", cookieOptions);
     res.json({ message: "Вы успешно вышли из системы" });
   } catch (err) {
     console.error("Ошибка выхода из системы:", err);
