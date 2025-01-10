@@ -27,6 +27,8 @@ const PROD_MODE =
     process.env.RAILWAY_ENVIRONMENT_NAME === "production") ||
   process.env.NODE_ENV === "production";
 
+console.log("Production mode:", PROD_MODE);
+
 app.use(
   cors({
     origin: [
