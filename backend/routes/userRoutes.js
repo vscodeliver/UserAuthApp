@@ -137,10 +137,14 @@ router.post("/verify-captcha", (req, res) => {
 
   console.log("Request session", req.session);
 
-  if (req.session.captcha?.toLowerCase() === captchaCode.toLowerCase()) {
-    res.json({ success: true, message: "Капча подтверждена" });
+  if (req.session.captcha) {
+    if (req.session.captcha.toLowerCase() === captchaCode.toLowerCase()) {
+      res.json({ success: true, message: "Капча подтверждена" });
+    } else {
+      res.json({ success: false, message: "Неверная капча" });
+    }
   } else {
-    res.json({ success: false, message: "Неверная капча" });
+    console.log("Request session captcha:", req.session.captcha);
   }
 });
 
