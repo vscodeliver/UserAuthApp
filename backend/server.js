@@ -79,7 +79,7 @@ app.use(
     cookie: {
       secure: PROD_MODE, // Для разработки secure: false (HTTPS не требуется)
       httpOnly: true,
-      sameSite: "lax"
+      sameSite: PROD_MODE ? "strict" : "lax"
     }
   })
 );
