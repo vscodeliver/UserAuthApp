@@ -49,8 +49,8 @@ const MySQLStore = require("express-mysql-session")(session);
 const sessionStore = new MySQLStore({
   host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
   port: 14311,
-  user: "anvadmin",
-  password: "AVNS_XHn96rh1RFUzzcbxmIp",
+  user: "railway",
+  password: "AVNS_y2i4Rf_MwgLo3hCtHq0",
   database: "defaultdb",
   ssl: {
     require: true,
