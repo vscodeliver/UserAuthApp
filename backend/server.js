@@ -95,32 +95,16 @@ app.use(cookieParser());
 //   next();
 // });
 
-// Пример маршрута для тестирования cookies
-app.get("/test", (req, res) => {
-  if (!req.session.viewCount) {
-    req.session.viewCount = 1;
-  } else {
-    req.session.viewCount++;
-  }
-
-  console.log("Session data:", req.session);
-
-  res.json({
-    success: true,
-    viewCount: req.session.viewCount
-  });
-});
-
 // Routes
 app.use("/user", userRoutes);
 
 // Middleware для обслуживания статических файлов
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
-// Перенаправление всех запросов на фронтенд
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// // Перенаправление всех запросов на фронтенд
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`Сервер доступен по адресу http://localhost:${PORT}`);
