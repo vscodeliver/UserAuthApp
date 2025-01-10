@@ -46,7 +46,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const MySQLStore = require("express-mysql-session")(session);
 
 const sessionStore = new MySQLStore({
-  host: process.env.MYSQL_SERVICE_URI,
+  host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
+  port: 14311,
+  user: "anvadmin",
+  password: "AVNS_XHn96rh1RFUzzcbxmIp",
   database: "defaultdb",
 });
 
