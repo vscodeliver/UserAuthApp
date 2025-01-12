@@ -32,7 +32,12 @@ router.post("/register", async (req, res) => {
   // }
 
   if (!email.trim().replace(/\s+/g)) {
-    return res.status(400).json({ error: "Введите E-Mail для регистрации!" });
+    return res.status(400).json({ error: "Введите E-Mail для регистрации" });
+  }
+
+  // Проверка ввода пароля
+  if (!password.trim().replace(/\s+/g)) {
+    return res.status(400).json({ error: "Введите пароль для регистрации" });
   }
 
   // Проверка валидности email
@@ -48,7 +53,10 @@ router.post("/register", async (req, res) => {
   ) {
     return res
       .status(400)
-      .json({ error: "Пароль не соответствует требованиям" });
+      .json({
+        error:
+          "Пароль должен начинаться с заглавной буквы, состоять из 8+ символов и включать один специальный символ!"
+      });
   }
 
   try {
@@ -77,11 +85,11 @@ router.post("/login", async (req, res) => {
   //   return res.status(400).json({ error: "Неверная капча" });
   // }
 
-  if (!email.trim()) {
+  if (!email.trim().replace(/\s+/g)) {
     return res.status(400).json({ error: "Укажите свой E-Mail" });
   }
 
-  if (!validator.isEmail(email)) {
+  if (!validator.isEmail(email.trim())) {
     return res
       .status(400)
       .json({ error: "Укажите настоящий адрес электронной почты" });

@@ -9,7 +9,7 @@ const path = require("path");
 
 require("dotenv").config();
 
-const getControllerPath = (name) => {
+const getControllerPath = name => {
   return require(`./controllers/${name}`);
 };
 
@@ -47,11 +47,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const MySQLStore = require("express-mysql-session")(session);
 
 const sessionStore = new MySQLStore({
-  host: "mysql-auth-app-test-task-user-auth-it-task-test-app.c.aivencloud.com",
-  port: 14311,
-  user: "railway",
-  password: "AVNS_y2i4Rf_MwgLo3hCtHq0",
-  database: "defaultdb",
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   ssl: {
     require: true,
     ca: fs.readFileSync(path.resolve("certificates", "ca.pem")),
