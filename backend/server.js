@@ -38,7 +38,8 @@ app.use(
       "https://userauthapp-production.up.railway.app",
       'https://app.netlify.com',
       'https://*.netlify.app',
-      "https://deploy-preview-1--userauthtestapp.netlify.app"
+      "https://deploy-preview-1--userauthtestapp.netlify.app",
+      "https://userauthtestapp.netlify.app"
     ], // Укажите точный адрес фронтенда
     credentials: true // Разрешить отправку cookies
   })
