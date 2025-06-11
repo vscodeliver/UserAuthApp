@@ -36,7 +36,8 @@ app.use(
       "http://localhost:5173",
       "http://localhost:4173",
       "https://userauthapp-production.up.railway.app",
-      "*.netlify.app"
+      "https://*.netlify.app",
+      "https://deploy-preview-1--userauthtestapp.netlify.app"
     ], // Укажите точный адрес фронтенда
     credentials: true // Разрешить отправку cookies
   })
