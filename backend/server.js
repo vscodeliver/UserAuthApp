@@ -90,7 +90,7 @@ app.use(cookieParser());
 // });
 
 // Routes
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 // Middleware для обслуживания статических файлов
 // app.use(express.static(path.join(__dirname, "public")));
