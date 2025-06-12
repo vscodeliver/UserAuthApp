@@ -32,12 +32,10 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: [
+    origin: PROD_MODE ? "https://userauthtestapp.netlify.app" : [
       "http://localhost:5173",
       "http://localhost:4173",
       "https://userauthapp-production.up.railway.app",
-      'https://app.netlify.com',
-      'https://*.netlify.app',
       "https://deploy-preview-1--userauthtestapp.netlify.app",
       "https://userauthtestapp.netlify.app"
     ], // Укажите точный адрес фронтенда
